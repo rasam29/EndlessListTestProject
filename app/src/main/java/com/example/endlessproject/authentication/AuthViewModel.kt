@@ -4,10 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.endlessproject.tools.BaseViewModel
-import com.example.endlessproject.tools.SingleLiveEvent
-import com.example.endlessproject.tools.onFailure
-import com.example.endlessproject.tools.onSuccess
+import com.example.endlessproject.tools.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -34,16 +31,16 @@ class AuthViewModel @Inject constructor(
             getAuthKey(pair)
         }
         list.onFailure {
-            handleFailure.postValue(it)
+            _handleFailure.postValue(it)
             _isLoading.postValue(false)
         }
     }
 
-    private fun getAuthKey(pair: Pair<Int, Int>) = viewModelScope.launch(IO) {
+    fun getAuthKey(pair: Pair<Int, Int>) = viewModelScope.launch(IO) {
         val result = repository.getAuthKey(pair.first * pair.second)
         result.onFailure {
             _isLoading.postValue(false)
-            handleFailure.postValue(it)
+            _handleFailure.postValue(it)
         }
         result.onSuccess {
             sharedPref.edit().putString("token", it).apply()
@@ -52,19 +49,5 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    /**
-    function will find to pair of number for exp (a,b) which a+b = sum :2020
-     */
-    private fun MutableList<Int>.foundDesignatedPair(sum: Int = 2020): Pair<Int, Int> {
-        sort()
-        forEach { item ->
-            val tempVar = find {
-                it == sum - item
-            }
-            if (tempVar != null) {
-                return Pair(item, tempVar)
-            }
-        }
-        return Pair(0, 0)
-    }
+
 }

@@ -1,3 +1,3 @@
 package com.example.endlessproject.tools
 
-class Failure
+class Failure(val message:String)

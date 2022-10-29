@@ -7,5 +7,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 open class BaseViewModel @Inject constructor() : ViewModel() {
-    val handleFailure: MutableLiveData<Failure> = SingleLiveEvent()
+    val _handleFailure: MutableLiveData<Failure> = SingleLiveEvent()
 }

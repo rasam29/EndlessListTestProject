@@ -1,5 +1,6 @@
 package com.example.endlessproject
 
+import com.example.endlessproject.tools.foundDesignatedPair
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -9,9 +10,15 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ExtensionTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val list:MutableList<Int> = mutableListOf(60,1960)
+        val pair = list.foundDesignatedPair()
+        val expected = pair.second + pair.first
+        assertEquals(expected ,2020)
+
     }
+
+
 }

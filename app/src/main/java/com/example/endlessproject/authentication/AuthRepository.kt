@@ -14,7 +14,7 @@ class AuthRepositoryImpl(private val network: AuthService) : AuthRepository {
     override suspend fun getNumberList(): Either<Failure, MutableList<Int>> {
         val response = network.getNumber()
         return if (!response.isSuccessful) {
-            Either.Left(Failure())
+            Either.Left(Failure(""))
         } else {
             val numbers = response.body()?.split(",")?.map {
                 it.trim().toInt()
