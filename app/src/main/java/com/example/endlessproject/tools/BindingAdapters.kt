@@ -5,7 +5,6 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 
-
 @BindingAdapter("isShowing")
 fun setVisibility(view: View, isShowing: Boolean) {
     view.visibility = if (isShowing) View.VISIBLE else View.GONE

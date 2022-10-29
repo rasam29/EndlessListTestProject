@@ -11,7 +11,6 @@ import com.example.endlessproject.databinding.ItemApplicationBinding
 class AppListAdapter(diffCallBack: DiffUtil.ItemCallback<AppPlusMetaData>) :
     PagingDataAdapter<AppPlusMetaData, AppListAdapter.AppViewHolder>(diffCallBack) {
 
-
     override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
         holder.bind(getItem(position))
     }

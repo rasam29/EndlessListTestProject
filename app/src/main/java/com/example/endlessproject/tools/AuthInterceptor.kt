@@ -14,5 +14,4 @@ class AuthInterceptor @Inject constructor(private val sharedPref: SharedPreferen
                 .build()
         )
     }
-
 }

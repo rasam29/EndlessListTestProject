@@ -18,5 +18,4 @@ interface AppListService {
         @Query("lang")
         lang: String = "fa"
     ): Response<EndlessListResponse>
-
 }

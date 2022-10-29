@@ -14,7 +14,6 @@ class AppListPagingSource(
 ) :
     PagingSource<Int, AppPlusMetaData>() {
 
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AppPlusMetaData> {
         val response = repository.getPagedList(
             offset = params.key ?: 0,
@@ -24,9 +23,11 @@ class AppListPagingSource(
         return when {
             response.isRight -> {
                 val pageData = (response as Either.Right).b
-                max.invoke(pageData.appPlusMetaData.maxByOrNull {
-                    it.rating ?: 0F
-                })
+                max.invoke(
+                    pageData.appPlusMetaData.maxByOrNull {
+                        it.rating ?: 0F
+                    }
+                )
 
                 LoadResult.Page(
                     data = pageData.appPlusMetaData,
@@ -41,9 +42,7 @@ class AppListPagingSource(
                 LoadResult.Error(Throwable())
             }
         }
-
     }
-
 
     override fun getRefreshKey(state: PagingState<Int, AppPlusMetaData>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -51,6 +50,4 @@ class AppListPagingSource(
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
-
-
 }

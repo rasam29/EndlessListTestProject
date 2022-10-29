@@ -2,7 +2,6 @@ package com.example.endlessproject.appList
 
 import com.google.gson.annotations.SerializedName
 
-
 data class EndlessListResponse(
 
     @SerializedName("eol") var eol: Boolean? = null,
@@ -72,7 +71,6 @@ data class AppPlusMetaData(
     @SerializedName("badge") var badge: Badge? = Badge()
 
 )
-
 
 data class CategorySummary(
 

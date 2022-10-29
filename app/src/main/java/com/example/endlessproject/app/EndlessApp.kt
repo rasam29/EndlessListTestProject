@@ -6,7 +6,7 @@ import com.uxcam.datamodel.UXConfig
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class EndlessApp : Application(){
+class EndlessApp : Application() {
     override fun onCreate() {
         super.onCreate()
         val config: UXConfig = UXConfig.Builder("e3o3cdavzdlfrfp")

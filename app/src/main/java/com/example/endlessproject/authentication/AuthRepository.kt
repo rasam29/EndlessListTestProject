@@ -4,7 +4,6 @@ import com.example.endlessproject.tools.Either
 import com.example.endlessproject.tools.Failure
 import com.example.endlessproject.tools.handleHttpResponse
 
-
 interface AuthRepository {
     suspend fun getNumberList(): Either<Failure, MutableList<Int>>
     suspend fun getAuthKey(multipliedNumber: Int): Either<Failure, String>
@@ -21,12 +20,10 @@ class AuthRepositoryImpl(private val network: AuthService) : AuthRepository {
             }?.toMutableList()!!
             Either.Right(numbers)
         }
-
     }
 
     override suspend fun getAuthKey(multipliedNumber: Int): Either<Failure, String> {
         val response = network.retrieveAuthToken(multipliedNumber)
         return response.handleHttpResponse()
     }
-
 }

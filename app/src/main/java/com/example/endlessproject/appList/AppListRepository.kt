@@ -18,5 +18,4 @@ class AppListRepositoryImpl(private val network: AppListService) : AppListReposi
             listKey.name, offset
         ).handleHttpResponse()
     }
-
 }

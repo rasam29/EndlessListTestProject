@@ -20,7 +20,6 @@ class AppListViewModel @Inject constructor(private val repository: AppListReposi
 
     lateinit var listKey: ListKey
 
-
     private val _maxRateItem: MutableLiveData<AppPlusMetaData?> = SingleLiveEvent()
     val maxRateItem: LiveData<AppPlusMetaData?> = _maxRateItem
 
@@ -35,6 +34,4 @@ class AppListViewModel @Inject constructor(private val repository: AppListReposi
             _progress.postValue(false)
         }
     }.flow.cachedIn(viewModelScope).onStart { _progress.postValue(true) }
-
-
 }

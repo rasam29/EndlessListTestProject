@@ -28,5 +28,4 @@ object AppListDi {
     fun provideRepository(network: AppListService): AppListRepository {
         return AppListRepositoryImpl(network)
     }
-
 }

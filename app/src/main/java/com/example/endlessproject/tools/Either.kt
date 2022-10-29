@@ -50,7 +50,6 @@ sealed class Either<out L, out R> {
      */
     fun <L> left(a: L) = Either.Left(a)
 
-
     /**
      * Creates a Left type.
      * @see Right

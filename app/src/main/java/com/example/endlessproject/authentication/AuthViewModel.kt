@@ -16,7 +16,6 @@ class AuthViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : BaseViewModel() {
 
-
     private val _navigateToMainPage: MutableLiveData<Unit> = SingleLiveEvent()
     val navigateToMainPage: LiveData<Unit> = _navigateToMainPage
 
@@ -48,6 +47,4 @@ class AuthViewModel @Inject constructor(
             _navigateToMainPage.postValue(Unit)
         }
     }
-
-
 }

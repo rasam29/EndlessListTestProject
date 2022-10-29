@@ -1,6 +1,5 @@
 package com.example.endlessproject.tools
 
-
 /**
 function will find to pair of number for exp (a,b) which a+b = sum :2020
  */

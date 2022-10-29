@@ -20,7 +20,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-
     @Singleton
     @Provides
     fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
@@ -33,7 +32,6 @@ object NetworkModule {
         return AuthInterceptor(sharedPreferences)
     }
 
-
     @Provides
     @Singleton
     fun provideOkhttpClient(
@@ -41,12 +39,13 @@ object NetworkModule {
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
             .build()
     }
-
 
     @Provides
     @Singleton

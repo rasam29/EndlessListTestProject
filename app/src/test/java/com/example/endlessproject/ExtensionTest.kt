@@ -1,9 +1,8 @@
 package com.example.endlessproject
 
 import com.example.endlessproject.tools.foundDesignatedPair
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -13,12 +12,9 @@ import org.junit.Assert.*
 class ExtensionTest {
     @Test
     fun addition_isCorrect() {
-        val list:MutableList<Int> = mutableListOf(60,1960)
+        val list: MutableList<Int> = mutableListOf(60, 1960)
         val pair = list.foundDesignatedPair()
         val expected = pair.second + pair.first
-        assertEquals(expected ,2020)
-
+        assertEquals(expected, 2020)
     }
-
-
 }

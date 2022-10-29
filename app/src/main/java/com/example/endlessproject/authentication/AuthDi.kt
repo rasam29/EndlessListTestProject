@@ -11,7 +11,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AuthDi {
 
-
     @Provides
     @Singleton
     fun providesNetwork(retrofit: Retrofit): AuthService {
@@ -23,7 +22,6 @@ object AuthDi {
     fun providesRepository(network: AuthService): AuthRepository {
         return AuthRepositoryImpl(network)
     }
-
 }
 
 enum class ListKey {

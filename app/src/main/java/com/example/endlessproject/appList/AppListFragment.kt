@@ -1,6 +1,5 @@
 package com.example.endlessproject.appList
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +24,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AppListFragment(private val listKey: ListKey) : Fragment() {
 
-
     private val listViewModel: AppListViewModel by viewModels()
 
     private var _binding: FragmentAppListBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +55,6 @@ class AppListFragment(private val listKey: ListKey) : Fragment() {
                 listViewModel.flow.collectLatest {
                     adapter.submitData(it)
                 }
-
             }
         }
     }
