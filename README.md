@@ -8,6 +8,7 @@
 * Retrofit2
 * Paging3
 * Dagger Hilt
+* Data Binding
 
 
 ### Application Flows
