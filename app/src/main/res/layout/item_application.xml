@@ -19,7 +19,6 @@
             android:layout_marginEnd="16dp"
             android:text="@{data.farsiTitle}"
             android:textColor="@color/black"
-
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/ratingBar"

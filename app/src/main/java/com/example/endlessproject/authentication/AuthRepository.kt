@@ -11,16 +11,14 @@ interface AuthRepository {
 
 class AuthRepositoryImpl(private val network: AuthService) : AuthRepository {
     override suspend fun getNumberList(): Either<Failure, MutableList<Int>> {
-        val response = network.getNumber()
-        return if (!response.isSuccessful) {
-            Either.Left(Failure(""))
-        } else {
-            Either.Right(response.body()!!)
+        return handleHttpResponse {
+            network.getNumber()
         }
     }
 
     override suspend fun getAuthKey(multipliedNumber: Int): Either<Failure, String> {
-        val response = network.retrieveAuthToken(multipliedNumber)
-        return response.handleHttpResponse()
+        return handleHttpResponse{
+            network.retrieveAuthToken(multipliedNumber)
+        }
     }
 }

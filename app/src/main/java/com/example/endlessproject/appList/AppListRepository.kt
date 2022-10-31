@@ -14,8 +14,10 @@ class AppListRepositoryImpl(private val network: AppListService) : AppListReposi
         offset: Int,
         listKey: ListKey
     ): Either<Failure, EndlessListResponse> {
-        return network.getApplicationList(
-            listKey.name, offset
-        ).handleHttpResponse()
+        return handleHttpResponse {
+            network.getApplicationList(
+                listKey.name, offset
+            )
+        }
     }
 }
