@@ -8,7 +8,6 @@ import com.example.endlessproject.R
 import com.example.endlessproject.appList.list.TabPagerAdapter
 import com.example.endlessproject.authentication.AuthViewModel
 import com.example.endlessproject.databinding.ActivityMainBinding
-import com.uxcam.UXCam
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +27,5 @@ class MainActivity : AppCompatActivity() {
         viewModel.navigateToMainPage.observe(this) {
             binding.viewPager.adapter = TabPagerAdapter(this)
         }
-        UXCam.tagScreenName("main activity")
     }
 }

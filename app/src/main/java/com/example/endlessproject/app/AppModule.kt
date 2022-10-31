@@ -3,6 +3,8 @@ package com.example.endlessproject.app
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.endlessproject.tools.AuthInterceptor
+import com.example.endlessproject.tools.ScalarsConvertorFactory
+import com.example.endlessproject.tools.getScalarConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +15,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -54,8 +55,7 @@ object NetworkModule {
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://debugger.myket.ir/")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(getScalarConverter())
             .client(client)
             .build()
     }

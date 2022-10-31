@@ -19,8 +19,7 @@ object AppListDi {
         return Retrofit.Builder()
             .baseUrl("https://apiserver.myket.ir/v1/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-                
+            .client( client )
             .build()
             .create(AppListService::class.java)
     }

@@ -16,7 +16,7 @@ import com.example.endlessproject.appList.list.AppListAdapter
 import com.example.endlessproject.appList.list.Comparator
 import com.example.endlessproject.authentication.ListKey
 import com.example.endlessproject.databinding.FragmentAppListBinding
-import com.uxcam.UXCam
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -46,7 +46,6 @@ class AppListFragment(private val listKey: ListKey) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = AppListAdapter(Comparator)
-        UXCam.tagScreenName("applist fragment")
         binding.mainList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.mainList.adapter = adapter

@@ -7,7 +7,7 @@ data class EndlessListResponse(
     @SerializedName("eol") var eol: Boolean? = null,
     @SerializedName("appPlusMetaDataList") var appPlusMetaData: ArrayList<AppPlusMetaData> = arrayListOf(),
     @SerializedName("shareText") var shareText: String? = null,
-    @SerializedName("title")   var title: String? = null
+    @SerializedName("title") var title: String? = null
 
 )
 

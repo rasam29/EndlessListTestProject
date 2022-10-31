@@ -15,10 +15,7 @@ class AuthRepositoryImpl(private val network: AuthService) : AuthRepository {
         return if (!response.isSuccessful) {
             Either.Left(Failure(""))
         } else {
-            val numbers = response.body()?.split(",")?.map {
-                it.trim().toInt()
-            }?.toMutableList()!!
-            Either.Right(numbers)
+            Either.Right(response.body()!!)
         }
     }
 
