@@ -50,7 +50,7 @@ class AppListFragment(private val listKey: ListKey) : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.mainList.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 listViewModel.flow.collectLatest {
                     adapter.submitData(it)
                 }
