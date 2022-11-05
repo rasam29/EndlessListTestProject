@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.endlessproject.R
 import com.example.endlessproject.appList.list.AppListAdapter
 import com.example.endlessproject.appList.list.Comparator
@@ -49,6 +50,8 @@ class AppListFragment(private val listKey: ListKey) : Fragment() {
         binding.mainList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.mainList.adapter = adapter
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.mainList)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 listViewModel.flow.collectLatest {
