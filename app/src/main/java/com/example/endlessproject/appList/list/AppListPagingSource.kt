@@ -3,9 +3,10 @@ package com.example.endlessproject.appList.list
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.endlessproject.appList.AppListRepository
-import com.example.endlessproject.appList.AppPlusMetaData
+import com.example.endlessproject.appList.UiModel.AppPlusMetaData
 import com.example.endlessproject.authentication.ListKey
 import com.example.endlessproject.tools.Either
+import kotlinx.coroutines.delay
 
 class AppListPagingSource(
     private val repository: AppListRepository,
@@ -28,7 +29,6 @@ class AppListPagingSource(
                         it.rating ?: 0F
                     }
                 )
-
                 LoadResult.Page(
                     data = pageData.appPlusMetaData,
                     prevKey = null, // Only paging forward.

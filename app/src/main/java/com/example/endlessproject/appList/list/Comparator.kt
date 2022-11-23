@@ -1,14 +1,15 @@
 package com.example.endlessproject.appList.list
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.endlessproject.appList.AppPlusMetaData
+import com.example.endlessproject.appList.UiModel
+import com.example.endlessproject.appList.UiModel.AppPlusMetaData
 
-object Comparator : DiffUtil.ItemCallback<AppPlusMetaData>() {
-    override fun areItemsTheSame(oldItem: AppPlusMetaData, newItem: AppPlusMetaData): Boolean {
-        return oldItem.packageName == newItem.packageName
+object Comparator : DiffUtil.ItemCallback<UiModel>() {
+    override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
+        return false
     }
 
-    override fun areContentsTheSame(oldItem: AppPlusMetaData, newItem: AppPlusMetaData): Boolean {
+    override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
         return oldItem == newItem
     }
 }

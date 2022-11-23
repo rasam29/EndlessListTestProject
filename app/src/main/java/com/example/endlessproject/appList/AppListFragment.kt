@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,12 +16,14 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.endlessproject.R
 import com.example.endlessproject.appList.list.AppListAdapter
 import com.example.endlessproject.appList.list.Comparator
+import com.example.endlessproject.appList.list.ProgressAdapter
 import com.example.endlessproject.authentication.ListKey
 import com.example.endlessproject.databinding.FragmentAppListBinding
 
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class AppListFragment(private val listKey: ListKey) : Fragment() {
@@ -46,16 +49,23 @@ class AppListFragment(private val listKey: ListKey) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = AppListAdapter(Comparator)
-        binding.mainList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.mainList.adapter = adapter
+        val appListAdapter = AppListAdapter(Comparator)
+
+
+        binding.mainList.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = appListAdapter.withLoadStateHeaderAndFooter(ProgressAdapter(),ProgressAdapter())
+            setHasFixedSize(true)
+            setItemViewCacheSize(20)
+        }
+
+
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.mainList)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 listViewModel.flow.collectLatest {
-                    adapter.submitData(it)
+                    appListAdapter.submitData(it)
                 }
             }
         }

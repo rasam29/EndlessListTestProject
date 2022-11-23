@@ -3,14 +3,14 @@ package com.example.endlessproject.appList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
+import androidx.paging.*
 import com.example.endlessproject.appList.list.AppListPagingSource
 import com.example.endlessproject.authentication.ListKey
 import com.example.endlessproject.tools.BaseViewModel
 import com.example.endlessproject.tools.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
@@ -20,8 +20,8 @@ class AppListViewModel @Inject constructor(private val repository: AppListReposi
 
     lateinit var listKey: ListKey
 
-    private val _maxRateItem: MutableLiveData<AppPlusMetaData?> = SingleLiveEvent()
-    val maxRateItem: LiveData<AppPlusMetaData?> = _maxRateItem
+    private val _maxRateItem: MutableLiveData<UiModel.AppPlusMetaData?> = SingleLiveEvent()
+    val maxRateItem: LiveData<UiModel.AppPlusMetaData?> = _maxRateItem
 
     private val _progress: MutableLiveData<Boolean> = SingleLiveEvent()
     val progress: LiveData<Boolean> = _progress
@@ -33,5 +33,22 @@ class AppListViewModel @Inject constructor(private val repository: AppListReposi
             _maxRateItem.postValue(it)
             _progress.postValue(false)
         }
-    }.flow.cachedIn(viewModelScope).onStart { _progress.postValue(true) }
+    }.flow.map {
+       it.map {
+           UiModel.AppPlusMetaData().apply {
+               it
+           }
+       }.insertSeparators { before, after ->
+           when {
+               before != null && after != null -> {
+                   UiModel.Separator
+               }
+               before == null -> UiModel.Separator
+               after == null -> null
+
+               else -> null
+           }
+       }
+    }.cachedIn(viewModelScope)
+     .onStart { _progress.postValue(true) }
 }
