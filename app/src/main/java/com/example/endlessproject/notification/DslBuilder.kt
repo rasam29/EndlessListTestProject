@@ -43,17 +43,16 @@ fun Channel.Behaviourz(behaveBuilder: (@Dsl Behaviour).() -> Unit) {
     val tempBehaviour = Behaviour().apply(behaveBuilder)
     defaultBehavior = tempBehaviour
 }
-
+@Suppress("FunctionName", "SpellCheckingInspection")
+fun Behaviour.Privazy(privacySettingBuilder:(@Dsl PrivacySetting).()->Unit){
+    privacySetting.apply(privacySettingBuilder)
+}
 
 @Suppress("FunctionName", "SpellCheckingInspection")
 fun Notifz(notificationBuilder:(@Dsl NotificationConfig).()->Unit):NotificationConfig{
     return NotificationConfig().apply(notificationBuilder)
 }
 
-@Suppress("FunctionName", "SpellCheckingInspection")
-fun NotificationConfig.Privazy(privacySettingBuilder:(@Dsl PrivacySetting).()->Unit){
-    privacySetting.apply(privacySettingBuilder)
-}
 
 @Suppress("FunctionName", "SpellCheckingInspection")
 fun NotificationConfig.Behaviourz(behavoiurBuilder:(@Dsl Behaviour).()->Unit){
@@ -71,7 +70,12 @@ fun NotificationConfig.Behaviourz(behavoiurBuilder:(@Dsl Behaviour).()->Unit){
 
 val notif = Notifz {
     titleText = ""
+    Behaviourz {
+        enableSound  = true
+        Privazy {
 
+        }
+    }
 }
 
 
