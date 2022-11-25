@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             binding.viewPager.adapter = TabPagerAdapter(this)
         }
 
-        showNotification()
+//        showNotification()
 
 
 
