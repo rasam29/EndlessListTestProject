@@ -16,6 +16,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.endlessproject.R
 import kotlin.random.Random
 
+var defaultChannelId:String = ""
 
 fun Context.registerChannelsAndGroups(groups: MutableList<GroupCategory>) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -27,8 +28,9 @@ fun Context.registerChannelsAndGroups(groups: MutableList<GroupCategory>) {
                 tempGroup.description = groupData.groupDescription
             }
             notificationManager.createNotificationChannelGroup(tempGroup)
-
+            NotificationCompat.Action()
             for (channelData in groupData.t) {
+                defaultChannelId = if (channelData.isDefault) channelData.id?:"" else ""
                 val mChannel = NotificationChannel(
                     channelData.id,
                     channelData.title,
@@ -44,6 +46,7 @@ fun Context.registerChannelsAndGroups(groups: MutableList<GroupCategory>) {
                 }
                 notificationManager.createNotificationChannel(mChannel)
             }
+            if (defaultChannelId.isEmpty()) throw IllegalArgumentException("you have to set one of the channels as default!")
         }
     }
 }
@@ -53,6 +56,7 @@ fun Context.registerGroupLessChannels(channels: MutableList<Channel>) {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         for (channelData in channels) {
+            defaultChannelId = if (channelData.isDefault) channelData.id?:"" else ""
             val mChannel = NotificationChannel(
                 channelData.id,
                 channelData.title,
@@ -66,6 +70,7 @@ fun Context.registerGroupLessChannels(channels: MutableList<Channel>) {
             }
             notificationManager.createNotificationChannel(mChannel)
         }
+        if (defaultChannelId.isEmpty()) throw IllegalArgumentException("you have to set one of the channels as default!")
     }
 }
 
@@ -76,7 +81,7 @@ fun Context.showNotification(config: NotificationConfig) {
         config.notifyId = Random.nextInt()
     }
     config.channelId = notificationManager.normalizeChannelId(config.channelId)
-
+    NotificationManagerCompat.from(this).areNotificationsEnabled()
     val builder = with(NotificationCompat.Builder(this, config.channelId!!)) {
         setContentTitle(config.titleText?.getTextWithRightAlignment())
         setContentText(config.contentText.getTextWithRightAlignment())
@@ -102,7 +107,6 @@ fun Context.showNotification(config: NotificationConfig) {
 
 
     with(NotificationManagerCompat.from(this)) {
-        // notificationId is a unique int for each notification that you must define
         notify(config.notifyId!!, builder.build())
     }
 }
@@ -111,10 +115,10 @@ fun Context.showNotification(config: NotificationConfig) {
 fun NotificationManager.normalizeChannelId(channelId: String?): String {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         return if (getNotificationChannel(channelId) == null || channelId.isNullOrEmpty()) {
-            DEFAULT_CHANNEL_ID
+            defaultChannelId
         } else channelId
     } else {
-        DEFAULT_CHANNEL_ID
+        defaultChannelId
     }
 }
 
@@ -134,4 +138,4 @@ const val CHANNEL_ID_DOWNLOAD = "download"
 private const val CHANNEL_ID_UPDATE = "update"
 private const val CHANNEL_ID_REVIEW = "review"
 private const val CHANNEL_ID_PROMOTION = "promotion"
-const val DEFAULT_CHANNEL_ID = "myket_channel_id"
+
